@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crosslingual-code-mixing-study"
+version = "0.1.0"
+description = "Reproducible evaluation of Hindi-English code-mixed prompts and tokenizer fragmentation."
+requires-python = ">=3.10"
+dependencies = [
+  "transformers>=4.45,<6",
+  "torch>=2.2",
+  "accelerate>=0.34,<2",
+  "huggingface-hub>=0.25,<2",
+  "pandas>=2.2,<4",
+  "numpy>=1.26,<3",
+  "openpyxl>=3.1,<4",
+  "PyYAML>=6,<7",
+  "scipy>=1.12,<2",
+  "python-dotenv>=1,<2",
+]
+
+[project.optional-dependencies]
+hosted = ["openai>=1.50,<3", "anthropic>=0.34,<1"]
+dev = ["ruff>=0.6,<1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

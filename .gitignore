@@ -1,0 +1,24 @@
+# Credentials and local environments
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Local source text and derived pilot workbooks: keep benchmark text private
+data/private/
+data/raw/
+data/processed/
+data/workbooks/*.xlsx
+outputs/
+results/
+*.log
+*.jsonl
+
+# Local model caches
+.cache/
+hf_cache/
+models/

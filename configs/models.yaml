@@ -1,0 +1,34 @@
+# Candidate registry. Freeze exact model/provider identifiers and revisions before a run.
+# Do not add API keys here; use environment variables listed in .env.example.
+models:
+  - model_id: meta-llama/Llama-3.1-8B-Instruct
+    provider: huggingface
+    revision: null
+    role: candidate_open_model
+    selected: false
+  - model_id: Qwen/Qwen2.5-7B-Instruct
+    provider: huggingface
+    revision: null
+    role: candidate_open_model
+    selected: false
+  - model_id: mistralai/Mistral-7B-Instruct-v0.3
+    provider: huggingface
+    revision: null
+    role: candidate_open_model
+    selected: false
+  - model_id: null
+    provider: openai
+    revision: null
+    role: optional_hosted_baseline
+    selected: false
+  - model_id: null
+    provider: anthropic
+    revision: null
+    role: optional_hosted_baseline
+    selected: false
+
+run_defaults:
+  temperature: 0
+  max_new_tokens: 64
+  system_prompt: "Answer the task directly. For multiple choice, return only the answer label."
+  unicode_normalization: NFC

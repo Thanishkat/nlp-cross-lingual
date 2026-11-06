@@ -62,4 +62,3 @@ The example commands require replacing each model ID and SHA with selected check
 ## Reproducibility and data handling
 
 The public repository should contain code, protocols, schemas, and source identifiers. Keep licensed benchmark text, local workbooks containing source questions, model outputs, and API usage logs outside version control unless each dataset's redistribution terms have been checked. Copy `.env.example` to `.env` locally; never commit credentials. Freeze immutable model and tokenizer revisions, prompt templates, decoding settings, Unicode normalization, and run dates before collecting results.
-

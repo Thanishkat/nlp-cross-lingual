@@ -1,0 +1,10 @@
+experiment_id,dataset,condition,matrix_language,embedded_language,script,generation_method,target_replacement_rate,text_fields_to_switch,baseline_condition,status,notes
+PILOT_BELEBELE_A,Belebele,A,English,None,Latin,source English baseline,,source matched fields,A,construction pilot,Prompt text excluded from public repository; human review pending.
+PILOT_BELEBELE_B,Belebele,B,English,Hindi,Latin,aligned span replacement,,matched Hindi spans,Baseline A,construction pilot,English matrix with Romanized Hindi; ECT/MLF candidate constraints and bilingual review required.
+PILOT_BELEBELE_C,Belebele,C,English,Hindi,Devanagari,matched script rendering,,same Hindi spans as B,Baseline B,construction pilot,Script contrast is conditional on this matched prompt design.
+PILOT_XNLI_A,XNLI,A,English,None,Latin,source English baseline,,premise+hypothesis,A,construction pilot,Prompt text excluded from public repository; human review pending.
+PILOT_XNLI_B,XNLI,B,English,Hindi,Latin,aligned span replacement,,matched Hindi spans,Baseline A,construction pilot,Preserve premise, hypothesis, and NLI label.
+PILOT_XNLI_C,XNLI,C,English,Hindi,Devanagari,matched script rendering,,same Hindi spans as B,Baseline B,construction pilot,Preserve the same item and label as A/B.
+PILOT_MMMLU_A,MMMLU,A,English,None,Latin,source English baseline,,question/options as defined,A,construction pilot,Prompt text excluded from public repository; human review pending.
+PILOT_MMMLU_B,MMMLU,B,English,Hindi,Latin,aligned span replacement,,question spans,Baseline A,construction pilot,Preserve answer options and key.
+PILOT_MMMLU_C,MMMLU,C,English,Hindi,Devanagari,matched script rendering,,same Hindi spans as B,Baseline B,construction pilot,Preserve the same item and answer key as A/B.
