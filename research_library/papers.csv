@@ -1,0 +1,22 @@
+Priority,Topic,Authors,Year,Title,Venue or status,Stable URL,Use in project
+0,Indic NLP resources and evaluation,"Doddapaneni et al.",2023,"Towards Leaving No Indic Language Behind: Building Monolingual Corpora, Benchmark and Models for Indic Languages",ACL 2023,https://aclanthology.org/2023.acl-long.693/,Foundational work on IndicCorp, IndicXTREME, IndicBERT v2, and tokenizer fertility as a diagnostic
+0,Indic generation benchmark,"Singh et al.",2024,"IndicGenBench: A Multilingual Benchmark to Evaluate Generation Capabilities of LLMs on Indic Languages",ACL 2024,https://aclanthology.org/2024.acl-long.595/,Generation benchmark across 29 Indic languages; context-window effects associated with tokenizer fertility
+1,Code switching,"Mohamed et al.",2026,"Lost in the Mix: Evaluating LLM Understanding of Code-Switched Text",ACL 2026,https://aclanthology.org/2026.acl-long.2080/,Core design and ECT/MLF stimulus method; no tokenizer analysis
+1,Indic tokenizer metrics,"Dwivedi and Gopalan",2026,"Comparative Analysis of the Intrinsic Metrics for Tokenizers and their effect on Downstream Tasks for Hindi and Marathi",ACL 2026,https://aclanthology.org/2026.acl-long.1037/,Closest Hindi/Marathi tokenizer and metric work
+1,Informal Hindi,"Ravikiran et al.",2026,"Do Tokenizers Fail on Informal Hindi Expressions? Evidence from Static Downstream and Robustness Analyses",LoResLM 2026,https://aclanthology.org/2026.loreslm-1.2/,Hindi romanization and orthographic robustness
+1,Causal tokenizer study,"Altintas et al.",2026,"TokSuite: Measuring the Impact of Tokenizer Choice on Language Model Behavior",ICML/PMLR 2026,https://proceedings.mlr.press/v306/altintas26a.html,Design reference for tokenizer-causal claims
+1,Tokenizer choice,"Ali et al.",2024,"Tokenizer Choice for LLM Training: Negligible or Crucial?",Findings of NAACL 2024,https://aclanthology.org/2024.findings-naacl.247/,Shows intrinsic measures are not sufficient proxies
+1,Tokenizer fairness,"Petrov et al.",2023,"Language Model Tokenizers Introduce Unfairness Between Languages",NeurIPS 2023,https://proceedings.neurips.cc/paper_files/paper/2023/file/74bb24dca8334adce292883b4b651eda-Paper-Conference.pdf,Motivation for language-specific token burden
+1,Tokenizer metrics,"Rust et al.",2021,"How Good Is Your Tokenizer? On the Monolingual Performance of Multilingual Language Models",ACL 2021,https://aclanthology.org/2021.acl-long.243/,Tokenizer evaluation background
+2,Indic tokenizer,"Kumar et al.",2024,"Evaluating Tokenizer Performance of Large Language Models Across Official Indian Languages",arXiv 2024,https://arxiv.org/abs/2411.12240,Wide Indic language coverage
+2,Hindi and Bengali tokenization,"Pires et al.",2024,"Improving Bengali and Hindi Large Language Models",LREC-COLING 2024,https://aclanthology.org/2024.lrec-main.764/,Hindi and Bengali downstream tokenizer study
+2,Indic tokenizer,"Rana et al.",2025,"IndicSuperTokenizer: An Optimized Tokenizer for Indic Multilingual LLMs",arXiv preprint,https://arxiv.org/abs/2511.03237,Tokenizer design to evaluate in an Indic extension
+2,Indic tokenizer metrics,"Brahma et al.",2026,"Multilingual Tokenization through the Lens of Indian Languages: Challenges and Insights",Findings of ACL 2026,https://aclanthology.org/2026.findings-acl.1632/,Recent Indic tokenizer comparison
+2,Code mixing benchmark,"Yang and Chai",2025,"CodeMixBench: A Multilingual Code-Mixing Benchmark",EMNLP 2025,https://aclanthology.org/2025.emnlp-main.109/,Possible external validation
+2,Code switched QA,"Winata et al.",2026,CodeMixQA,arXiv 2026,https://arxiv.org/abs/2601.07153,Parallel QA and script variants; check licensing
+2,Romanized Indic,"Das et al.",2026,Indi-RomCoM,arXiv 2026,https://arxiv.org/abs/2606.30790,Romanized Indic-English and mixing intensity
+2,Syntactic code mixing,"Kodali et al.",2022,"SyMCoM: Syntactic Measure of Code Mixing",Findings of ACL 2022,https://aclanthology.org/2022.findings-acl.40/,Additional structural descriptor
+2,Hindi transliteration,"Gautam",2026,"LIPI: Transliterating Hindi the Way People Type It",WAT 2026,https://aclanthology.org/2026.wat-1.2/,Natural typed Romanization and variation
+2,CMI,"Gambäck and Das",2016,"Code-Mixing: A Challenge for Language Identification in the Language of Social Media",LREC 2016,https://aclanthology.org/L16-1292/,CMI background; not a naturalness score
+2,Tokenizer metrics,"Chiu",2026,"TokLens: A Multilingual Lens on Tokenizer Quality for LLMs",ACL SRW 2026,https://aclanthology.org/2026.acl-srw.18/,Single-token retention and cross-lingual metrics
+
