@@ -9,6 +9,20 @@ from pathlib import Path
 from openpyxl import load_workbook
 
 
+def cmi_pass(english_words: object, hindi_words: object) -> bool:
+    """Check the project's per-item CMI range from manipulated-field word counts."""
+    try:
+        english = float(english_words)
+        hindi = float(hindi_words)
+    except (TypeError, ValueError):
+        return False
+    total = english + hindi
+    if english < 0 or hindi < 0 or total <= 0:
+        return False
+    cmi = 1 - max(english, hindi) / total
+    return 0.28 <= cmi <= 0.32
+
+
 def export_prompts(workbook_path: str | Path, output_path: str | Path) -> int:
     workbook = load_workbook(workbook_path, read_only=True, data_only=True)
     if "Prompts" in workbook.sheetnames:  # original source workbook
@@ -29,10 +43,16 @@ def export_prompts(workbook_path: str | Path, output_path: str | Path) -> int:
             item_sheet.iter_rows(min_row=3, max_row=3, values_only=True)
         )]
         inclusion_col = item_headers.index("Inclusion")
+        english_words_col = item_headers.index("EN words")
+        hindi_words_col = item_headers.index("HI words")
         item_rows = [
             row for row in item_sheet.iter_rows(min_row=4, values_only=True) if row[0]
         ]
         item_status = {str(row[0]): str(row[inclusion_col] or "").strip().casefold() for row in item_rows}
+        item_cmi_pass = {
+            str(row[0]): cmi_pass(row[english_words_col], row[hindi_words_col])
+            for row in item_rows
+        }
     elif "Prompt Tracker" in workbook.sheetnames:  # generated tracker workbook
         sheet = workbook["Prompt Tracker"]
         source_headers = [str(c or "").strip() for c in next(
@@ -51,9 +71,15 @@ def export_prompts(workbook_path: str | Path, output_path: str | Path) -> int:
         )]
         item_id_col = human_headers.index("Item ID")
         inclusion_col = human_headers.index("Final inclusion")
+        english_words_col = human_headers.index("English words (manipulated fields)")
+        hindi_words_col = human_headers.index("Hindi words (matched spans)")
         human_items = [row for row in human_sheet.iter_rows(min_row=2, values_only=True) if row[item_id_col]]
         item_status = {
             str(row[item_id_col]): str(row[inclusion_col] or "").strip().casefold()
+            for row in human_items
+        }
+        item_cmi_pass = {
+            str(row[item_id_col]): cmi_pass(row[english_words_col], row[hindi_words_col])
             for row in human_items
         }
     else:
@@ -67,6 +93,7 @@ def export_prompts(workbook_path: str | Path, output_path: str | Path) -> int:
     output.parent.mkdir(parents=True, exist_ok=True)
     count = 0
     unreviewed = []
+    cmi_blocked = []
     with output.open("w", encoding="utf-8-sig", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=list(field_map))
         writer.writeheader()
@@ -75,10 +102,15 @@ def export_prompts(workbook_path: str | Path, output_path: str | Path) -> int:
             prompt_text = row[indices["prompt_text"]]
             if not prompt_id or not prompt_text:
                 continue
-            status = item_status.get(str(row[indices["item_id"]]), "")
+            item_id = str(row[indices["item_id"]])
+            status = item_status.get(item_id, "")
+            if status in {"exclude", "excluded", "reject", "rejected"}:
+                continue
+            if not item_cmi_pass.get(item_id, False):
+                cmi_blocked.append(str(prompt_id))
+                continue
             if status not in {"include", "included", "approved", "pass"}:
-                if status not in {"exclude", "excluded", "reject", "rejected"}:
-                    unreviewed.append(str(prompt_id))
+                unreviewed.append(str(prompt_id))
                 continue
             record = {
                 key: row[indices[key]] if row[indices[key]] is not None else ""
@@ -91,6 +123,12 @@ def export_prompts(workbook_path: str | Path, output_path: str | Path) -> int:
         raise ValueError(
             f"Review gate blocked export: {len(unreviewed)} populated prompt rows are not approved. "
             "Complete both independent reviews and adjudication, then mark each item Include or Exclude."
+        )
+    if cmi_blocked:
+        output.unlink(missing_ok=True)
+        raise ValueError(
+            f"CMI gate blocked export: {len(cmi_blocked)} populated prompt rows belong to items without a valid per-item CMI of 0.28–0.32. "
+            "Enter the manipulated-field English/Hindi word counts and revise any item outside the target range."
         )
     if count == 0:
         output.unlink(missing_ok=True)
