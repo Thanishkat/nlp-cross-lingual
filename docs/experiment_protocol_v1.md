@@ -22,6 +22,7 @@ The design estimates conditional contrasts. It does not estimate a general scrip
 4. Use ECT/MLF as candidate-site constraints. Retain an English grammatical frame in B/C, avoid idioms/fixed expressions, and use aligned Hindi material rather than independent free generation where parallel text exists.
 5. A model may suggest candidate switches, but the candidate is not accepted automatically. Two bilingual reviewers independently rate meaning preservation, answer preservation, naturalness, and Romanization; adjudicate disagreements and record the decision.
 6. Reviewers must not validate items they materially rewrote. Do not run models until the accepted batch is frozen.
+7. Apply the per-item CMI gate before release: `CMI = 1 − max(EN, HI) / (EN + HI)` on manipulated fields only, with target 0.30 ± 0.02 (0.28–0.32 inclusive). Count whitespace-delimited lexical tokens after stripping edge punctuation; exclude tokens containing numerals and fixed instructions, field labels, answer labels/options, and punctuation; count established Hindi borrowings in the designated Hindi spans as Hindi. Record EN/HI counts and CMI for every base item. The item must pass individually; a passing batch average is insufficient. Keep the Hindi lexical spans and switch locations matched between B and C. This is a construction gate, not a tokenizer metric or a naturalness guarantee.
 
 Do not call any batch “perfect.” Report the review process and remaining limitations.
 
