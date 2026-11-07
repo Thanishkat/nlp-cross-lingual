@@ -1,8 +1,10 @@
 # Cross-Lingual Evaluation of LLMs on Indian Code-Mixed Inputs
 
-This project studies whether Hindi-English code-mixing and script choice affect LLM benchmark accuracy, and how those outcomes relate to tokenizer fragmentation. It starts from a reviewed English-Hindi benchmark pilot; Marathi and other Indian languages are later extensions.
+This project studies how language mixing, script, and tokenizer behavior relate to language-model accuracy and context efficiency on matched English-Hindi benchmark items. It is grounded in several complementary research areas: Indic-language resources and evaluation, multilingual generation benchmarks, code-switched reasoning evaluation, and tokenizer fairness. No single paper defines the project.
 
-The starting point is an English-Hindi replication and extension of `Lost in the Mix: Evaluating LLM Understanding of Code-Switched Text` (ACL 2026, [paper](https://aclanthology.org/2026.acl-long.2080/), [official code](https://github.com/amr-mohamedd/Lost-in-the-Mix)). The paper is research context, not project instructions.
+Two foundational Indic studies motivate the broader design: [Towards Leaving No Indic Language Behind](https://aclanthology.org/2023.acl-long.693/) develops Indic corpora, the IndicXTREME benchmark, and IndicBERT v2, and reports tokenizer fertility as one diagnostic; [IndicGenBench](https://aclanthology.org/2024.acl-long.595/) evaluates generation across 29 Indic languages and relates token fertility to the number of examples that fit in a context window. Our project adds a controlled English / Romanized Hindi / Devanagari Hindi comparison and measures exact model-tokenizer pairs where tokenizer access permits. See [the synthesis and proposed study](docs/indic_papers_synthesis.md).
+
+The code-switching methods in [Lost in the Mix](https://aclanthology.org/2026.acl-long.2080/) inform stimulus construction and matched evaluation, but this project is not a one-paper replication. The proposed contribution is to test, on human-reviewed matched items, how script and Hindi insertion affect accuracy and token/context burden, and whether fragmentation is associated with errors after accounting for item and model differences.
 
 ## Current Research Questions
 
@@ -14,7 +16,7 @@ The current A/B/C pilot asks:
 
 These are paired contrasts on the same source items, not a broad script main effect. The proposed 45-item / 135-prompt feasibility set follows the attached 10-item / 30-prompt construction pilot. Broader naturalistic Hinglish, Telugu-English, or high-volume data are future phases after review and licensing.
 
-Stimulus construction has a per-item code-mixing index (CMI) gate: target 0.30 ± 0.02 (inclusive range 0.28–0.32), calculated as `1 − max(English words, Hindi words) / (English words + Hindi words)` on manipulated stimulus fields only. Count whitespace-delimited lexical tokens after stripping edge punctuation; exclude tokens containing numerals and fixed instructions, labels, answer options, and punctuation. Count established Hindi borrowings in designated Hindi spans as Hindi. Every item must pass individually; the batch mean does not replace this gate. B and C use the same aligned Hindi spans and switch locations. This is the project's construction rule, separate from tokenizer fragmentation measures.
+Stimulus construction has a per-item code-mixing index (CMI) gate: target 0.30 ± 0.02 (inclusive range 0.28–0.32), calculated as `1 − max(English words, Hindi words) / (English words + Hindi words)` on manipulated stimulus fields only. Count whitespace-delimited lexical tokens after stripping edge punctuation; exclude tokens containing numerals and fixed instructions, labels, answer options, and punctuation. Count established Hindi borrowings in designated Hindi spans as Hindi. Every item must pass individually; the batch mean does not replace this gate. B and C use the same aligned Hindi spans and switch locations. This is the project's construction rule, separate from the tokenizer fragmentation measures.
 
 ## Repo Map
 
@@ -30,6 +32,7 @@ Stimulus construction has a per-item code-mixing index (CMI) gate: target 0.30 �
 - `experiments/en_hi_replication_matrix.csv`: planned English-Hindi experiment conditions.
 - `docs/lost_in_mix_acl2026_review.md`: full-paper methods/results/limitations review.
 - `docs/new_literature_and_novelty.md`: tokenizer, informal Hindi, code-mixing, and research-gap reading list.
+- `docs/indic_papers_synthesis.md`: close reading of the two professor-shared Indic papers, research implications, and a staged publication plan.
 - `configs/models.yaml`: candidate model registry; exact revisions must be frozen before runs.
 - `src/crosslingual/`: tokenizer measurements, local inference, answer parsing, and file I/O.
 - `scripts/`: command-line entry points for tokenizer measurement, local evaluation, and summary analysis.
@@ -64,3 +67,4 @@ The example commands require replacing each model ID and SHA with selected check
 ## Reproducibility and data handling
 
 The public repository should contain code, protocols, schemas, and source identifiers. Keep licensed benchmark text, local workbooks containing source questions, model outputs, and API usage logs outside version control unless each dataset's redistribution terms have been checked. Copy `.env.example` to `.env` locally; never commit credentials. Freeze immutable model and tokenizer revisions, prompt templates, decoding settings, Unicode normalization, and run dates before collecting results.
+
