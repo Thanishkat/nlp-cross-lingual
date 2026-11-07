@@ -14,6 +14,8 @@ The current A/B/C pilot asks:
 
 These are paired contrasts on the same source items, not a broad script main effect. The proposed 45-item / 135-prompt feasibility set follows the attached 10-item / 30-prompt construction pilot. Broader naturalistic Hinglish, Telugu-English, or high-volume data are future phases after review and licensing.
 
+Stimulus construction has a per-item code-mixing index (CMI) gate: target 0.30 ± 0.02 (inclusive range 0.28–0.32), calculated as `1 − max(English words, Hindi words) / (English words + Hindi words)` on manipulated stimulus fields only. Count whitespace-delimited lexical tokens after stripping edge punctuation; exclude tokens containing numerals and fixed instructions, labels, answer options, and punctuation. Count established Hindi borrowings in designated Hindi spans as Hindi. Every item must pass individually; the batch mean does not replace this gate. B and C use the same aligned Hindi spans and switch locations. This is the project's construction rule, separate from tokenizer fragmentation measures.
+
 ## Repo Map
 
 - `docs/source_notes.md`: paper and pilot source notes, including current review status.
@@ -40,7 +42,7 @@ These are paired contrasts on the same source items, not a broad script main eff
 
 1. Complete the two independent reviewer forms and adjudicate all current items; the supplied workbook currently marks them Hold/Pending.
 2. Select and pin the exact model and tokenizer revisions on the local `Model Registry` sheet.
-3. Add the 35 additional feasibility items with source ID, split, source URL, license, answer key, Hindi span alignment, switch rationale, and review evidence.
+3. Add the 35 additional feasibility items with source ID, split, source URL, license, answer key, Hindi span alignment, switch rationale, review evidence, and per-item CMI counts/status.
 4. Export approved prompts, measure tokenizer fragmentation, and only then run the frozen model comparison.
 5. Expand to Marathi or other languages after this Hindi-English workflow is reviewed and stable.
 
